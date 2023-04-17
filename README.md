@@ -15,6 +15,7 @@ Hi there! Below are the coding interview tasks for the web development position.
 - The list can be displayed as a table, a simple list, or a grid.
 - The list should be sortable based on the following product attributes: `name`, `price`, `created_at`.
 - The list should be paginated, allowing the user to choose how many products to display per page. Additionally, there should be page buttons at the bottom of the list to traverse the collection of products.
+- On this route, display a form at the bottom of the list for adding products to the list of products. This form should have the following fields:- `name`, `image`, `price`, `created_at`.
 
 ### React Task
 - Create a new route at `/react_interview`.
