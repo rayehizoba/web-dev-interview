@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.pagination{
+    display: flex;
+    justify-content: space-between;
+}
+.pagination > .previous, .next{
+    line-height: 1.25rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: white;
+    border-color: rgb(209 213 219);
+    border-width: 1px;
+    border-radius: 0.375rem;
+    align-items: center;
+    cursor: default;
+    display: inline-flex;
+    position: relative;
+}
+
+.pagination > li{
+    display: none;
+}
+
+
+.pagination > li:first-child, .pagination> li:last-child{
+    display: block;
+}
+
+#showbox:checked~#showboxmenu {
+    opacity: 1;
+}
