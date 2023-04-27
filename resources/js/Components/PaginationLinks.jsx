@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
-const PaginationLinks = ({ itemsPerPage, data, setPageNumber}) => {
+const PaginationLinks = ({ itemsPerPage, data, setPageNumber, pageNumber}) => {
+
     /* const [data, setData] = useState([]); */
     /* const [pageNumber, setPageNumber] = useState(0); */
 
@@ -14,16 +15,16 @@ const PaginationLinks = ({ itemsPerPage, data, setPageNumber}) => {
                 `/api/react_interview?page=${pageNumber + 1}`
             );
             setData(response.data.products);
-
             console.log(response)
         };
         fetchData();
     }, [pageNumber]); */
+    
 
     const pageCount = Math.ceil(data?.total / itemsPerPage);
 
     const changePage = ({ selected }) => {
-        setPageNumber(selected);
+        setPageNumber(pageNumber +1);
     };
 
     return (

@@ -1,28 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { useCreateProductMutation } from "@/features/api/productApi";
+import { useUpdateProductMutation } from "@/features/api/productApi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const AddProduct = ({
-    refetch,
-    itemsPerPage,
-    pageNumber,
+const UpdateProduct = ({
+    selectedProduct,
+    setSelectedProduct,
     isSelectedProduct,
+    setIsSelectedProduct,
+    refetch,
 }) => {
+    const [productName, setProductName] = useState("");
+    const [amount, setAmount] = useState("");
     const [image_name, setImageName] = useState("");
 
-    const [createProduct, { data, isLoading, isError, error, isSuccess }] =
-        useCreateProductMutation();
+    const [updateProduct, { data, isLoading, isError, error, isSuccess }] =
+        useUpdateProductMutation();
 
     //on File change
     const onFileChange = (e) => {
         setImageName(e.target.files[0]);
     };
 
+    const addNewProduct = () => {
+        setIsSelectedProduct(false);
+        setSelectedProduct(null);
+    };
+
     const formik = useFormik({
         initialValues: {
-            name: "",
-            amount: "",
+            name: selectedProduct?.name ? selectedProduct.name : "",
+            amount: selectedProduct?.amount
+                ? parseInt(selectedProduct?.amount)
+                : "",
         },
 
         validationSchema: Yup.object({
@@ -33,17 +43,17 @@ const AddProduct = ({
             amount: Yup.number().required().min(0),
         }),
 
+        enableReinitialize: true,
+
         onSubmit: async (values, { setSubmitting, resetForm }) => {
-            const formData = new FormData();
-            //append fields to form data
-            formData.append("name", values.name);
-            formData.append("amount", values.amount);
-            formData.append("image", image_name);
             
-            await createProduct(formData);
+            await updateProduct({ ...values, image:image_name, id: selectedProduct.id });
             await refetch();
+            setIsSelectedProduct(false);
+            setSelectedProduct(null);
             setSubmitting(false);
             resetForm();
+
             window.scrollTo({
                 top: document.body.scrollTop,
                 behavior: "smooth",
@@ -58,19 +68,16 @@ const AddProduct = ({
         formData.append("name", productName);
         formData.append("amount", amount);
         formData.append("image", image_name);
+        formData.append("id", selectedProduct.id);
 
-        await createProduct(formData);
-        refetch(itemsPerPage, pageNumber);
-        window.scrollTo({
-            top: document.body.scrollTop,
-            behavior: "smooth",
-        });
+        await updateProduct(formData);
+        //refetch(itemsPerPage, pageNumber);
     }; */
 
     return (
         <div className="bg-white rounded shadow-lg p-4 px-4 md:px-8 mb-6">
             <h2 className="text-center py-2 text-3xl font-600 mb-12">
-                Add New Product
+                Update Product
             </h2>
 
             {isError ? (
@@ -149,7 +156,7 @@ const AddProduct = ({
                                             : "cursor:pointer"
                                     }`}
                                 >
-                                    Submit
+                                    Update
                                 </button>
                                 {isSelectedProduct ? (
                                     <button
@@ -169,4 +176,4 @@ const AddProduct = ({
     );
 };
 
-export default AddProduct;
+export default UpdateProduct;

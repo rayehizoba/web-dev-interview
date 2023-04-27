@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.text-gray-500{
+    color: #6b7280;
+}
+.bg-gray-500{
+    background-color: #6b7280;
+}
+.bg-gray-700{
+    background-color: #374151;
+}
+
 .pagination{
     display: flex;
     justify-content: space-between;
@@ -31,8 +43,20 @@
 
 .pagination > li:first-child, .pagination> li:last-child{
     display: block;
+    min-width: 8rem;
+    text-align: center;
+    font-size: 1.25rem;
+    padding: 0;
+}
+.pagination > li:first-child a, .pagination> li:last-child a{
+    padding: 0.5rem;
+    display: block;
 }
 
 #showbox:checked~#showboxmenu {
+    opacity: 1;
+}
+
+#sortbox:checked~#sortboxmenu {
     opacity: 1;
 }

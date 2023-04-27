@@ -41,6 +41,10 @@ Route::get('/laravel_interview/{perPage}', [ProductController::class, 'products'
 Route::get('/laravel_interview', [ProductController::class, 'products'])->name('products');
 Route::post('/laravel_interview', [ProductController::class, 'store'])->name('store.product');
 
+Route::get('/laravel_interview/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+Route::put('/laravel_interview/update/{id}', [ProductController::class, 'update'])->name('product.update');
+Route::delete('/laravel_interview/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+
 Route::get('/react_interview', function () {
     return Inertia::render('Products/ListProducts');
 });
